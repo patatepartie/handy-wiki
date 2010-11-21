@@ -8,9 +8,12 @@ cleanUp() {
 setupVariables() {
 	INITAL_DIR=${PWD}
 	WORKING_DIR=/tmp/handy
+	REPO_SUBDIR=repo
 	MASTER_DIR=${WORKING_DIR}/master
 	NETBOOK_DIR=${WORKING_DIR}/netbook
+	NETBOOK_REPO=${NETBOOK_DIR}/${REPO_SUBDIR}
 	DESKTOP_DIR=${WORKING_DIR}/desktop
+	DESKTOP_REPO=${DESKTOP_DIR}/${REPO_SUBDIR}
 	
 	HOME_PAGE=HomePage
 	HOME_PAGE_CONTENT="Home Page"
@@ -26,15 +29,16 @@ setupMaster() {
 }
 
 setupNetbook() {
-	git init --quiet ${NETBOOK_DIR}
-	cd ${NETBOOK_DIR}
+	mkdir ${NETBOOK_DIR}
+	git init --quiet ${NETBOOK_REPO}
+	cd ${NETBOOK_REPO}
 	git remote add origin ${MASTER_DIR}
-	
 }
 
 setupDesktop() {
-	git init --quiet ${DESKTOP_DIR}
-	cd ${DESKTOP_DIR}
+	mkdir ${DESKTOP_DIR}
+	git init --quiet ${DESKTOP_REPO}
+	cd ${DESKTOP_REPO}
 	git remote add origin ${MASTER_DIR}
 }
 
@@ -69,7 +73,7 @@ assertFileContentEquals() {
 }
 
 modifyHomePageOnNetbook() {
-	cd ${NETBOOK_DIR}
+	cd ${NETBOOK_REPO}
 	echo ${HOME_PAGE_CONTENT} > ${HOME_PAGE}
 	git add ${HOME_PAGE}
 	git commit --quiet --message "A new home page"
@@ -80,7 +84,7 @@ publishNetbookModifications() {
 }
 
 retreiveUpdatesOnDesktop() {
-	cd ${DESKTOP_DIR}
+	cd ${DESKTOP_REPO}
 	git pull --quiet origin master
 }
 
