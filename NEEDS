@@ -1,6 +1,12 @@
+## Writing from anywhere ##
 I want to be able to write my ideas from anywhere, even when offline
 So that I don't forget any of them because of technical reasons.
 
+### Propagating modifications ###
+Given a modification I made on my netbook
+When I publish it
+Then I can access it from my desktop computer
+
+## Refactoring writings ##
 I want to be able to rework easily my writings
 So that I can organize them more clearly.
-
