@@ -1,0 +1,8 @@
+Handy Wiki is both an exercice in writing software in TDD and ATDD (BDD) style and a real need for myself.
+I've recently started to write about things I want to remember, be it a draft of a letter I need to send or maybe ideas to blog about.
+So I was looking for a wiki that would help me do that.
+What I basically need is: 
+- to be able to write to it even when offline, because I don't always have an internet connection;
+- to move text around easily so that I can write incrementally.
+
+I'm hoping handy wiki will be able to fullfil those needs. 
