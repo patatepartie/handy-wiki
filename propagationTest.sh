@@ -1,5 +1,10 @@
 #!/bin/sh
 
+cleanUp() {
+	cd ${INITIAL_DIR}
+	rm -rf ${WORKING_DIR}
+}
+
 setupVariables() {
 	INITAL_DIR=${PWD}
 	WORKING_DIR=/tmp/handy
@@ -11,35 +16,36 @@ setupVariables() {
 	HOME_PAGE_CONTENT="Home Page"
 }
 
-cleanUp() {
-	cd ${INITIAL_DIR}
-	rm -rf ${WORKING_DIR}
-}
-
 setupWorkingDirectory() {
 	mkdir ${WORKING_DIR}
 }
 
 setupMaster() {
 	mkdir ${MASTER_DIR}
-	git init --bare ${MASTER_DIR}
+	git init --quiet --bare ${MASTER_DIR}
 }
 
 setupNetbook() {
-	git init ${NETBOOK_DIR}
+	git init --quiet ${NETBOOK_DIR}
 	cd ${NETBOOK_DIR}
 	git remote add origin ${MASTER_DIR}
 	
 }
 
 setupDesktop() {
-	git init ${DESKTOP_DIR}
+	git init --quiet ${DESKTOP_DIR}
 	cd ${DESKTOP_DIR}
 	git remote add origin ${MASTER_DIR}
 }
 
+setupTraps() {
+	trap cleanUp 0
+	trap cleanUp 2
+}
+
 setup() {
 	setupVariables	
+	setupTraps	
 	setupWorkingDirectory
 	setupMaster
 	setupNetbook
@@ -62,23 +68,33 @@ assertFileContentEquals() {
 	fi
 }
 
-main() {
+modifyHomePageOnNetbook() {
 	cd ${NETBOOK_DIR}
 	echo ${HOME_PAGE_CONTENT} > ${HOME_PAGE}
 	git add ${HOME_PAGE}
-	git commit -m "A new home page"
-	
-	git push origin master
-	
-	cd ${DESKTOP_DIR}
-	git pull origin master
-	
-	assertFileExists ${HOME_PAGE} 
-	assertFileContentEquals ${HOME_PAGE} "${HOME_PAGE_CONTENT}" 
+	git commit --quiet --message "A new home page"
 }
 
-trap cleanUp 0
-trap cleanUp 2
+publishNetbookModifications() {
+	git push --quiet origin master
+}
+
+retreiveUpdatesOnDesktop() {
+	cd ${DESKTOP_DIR}
+	git pull --quiet origin master
+}
+
+verifyDesktopAndNetbookAreSynchronized() {
+	assertFileExists ${HOME_PAGE} 
+	assertFileContentEquals ${HOME_PAGE} "${HOME_PAGE_CONTENT}"
+}
+
+pageModificationsArePropagatedBetweenComputers() {
+	modifyHomePageOnNetbook
+	publishNetbookModifications
+	retreiveUpdatesOnDesktop
+	verifyDesktopAndNetbookAreSynchronized
+}
 
 setup
-main
+pageModificationsArePropagatedBetweenComputers
