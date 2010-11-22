@@ -7,6 +7,7 @@ cleanUp() {
 
 setupVariables() {
 	INITAL_DIR=${PWD}
+	INSTALLER=${INITAL_DIR}/target/handy-wiki-0.1.0-SNAPSHOT-jar-with-dependencies.jar
 	WORKING_DIR=/tmp/handy
 	REPO_SUBDIR=repo
 	MASTER_DIR=${WORKING_DIR}/master
@@ -19,6 +20,10 @@ setupVariables() {
 	HOME_PAGE_CONTENT="Home Page"
 }
 
+install() {
+	`java -jar ${INSTALLER} $1 $2`
+}
+
 setupWorkingDirectory() {
 	mkdir ${WORKING_DIR}
 }
@@ -29,17 +34,11 @@ setupMaster() {
 }
 
 setupNetbook() {
-	mkdir ${NETBOOK_DIR}
-	git init --quiet ${NETBOOK_REPO}
-	cd ${NETBOOK_REPO}
-	git remote add origin ${MASTER_DIR}
+	install ${NETBOOK_DIR} ${MASTER_DIR}
 }
 
 setupDesktop() {
-	mkdir ${DESKTOP_DIR}
-	git init --quiet ${DESKTOP_REPO}
-	cd ${DESKTOP_REPO}
-	git remote add origin ${MASTER_DIR}
+	install ${DESKTOP_DIR} ${MASTER_DIR}
 }
 
 setupTraps() {
