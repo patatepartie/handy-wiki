@@ -29,17 +29,15 @@ setupMaster() {
 }
 
 setupNetbook() {
-	mkdir ${NETBOOK_DIR}
-	git init --quiet ${NETBOOK_REPO}
-	cd ${NETBOOK_REPO}
-	git remote add origin ${MASTER_DIR}
+	installInstance ${NETBOOK_DIR}
 }
 
 setupDesktop() {
-	mkdir ${DESKTOP_DIR}
-	git init --quiet ${DESKTOP_REPO}
-	cd ${DESKTOP_REPO}
-	git remote add origin ${MASTER_DIR}
+	installInstance ${DESKTOP_DIR}
+}
+
+installInstance() {
+	. ./installer.sh $1
 }
 
 setupTraps() {
