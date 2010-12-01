@@ -64,7 +64,7 @@ assertFileExists() {
 assertFileContentEquals() {
 	if [ "`cat ${1}`" != "$2" ]
 	then
-		quitInErro "Content of file $1 is not $2"
+		quitInError "Content of file $1 is not $2"
 	fi
 }
 
