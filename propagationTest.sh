@@ -59,17 +59,21 @@ setup() {
 assertFileExists() {
 	if [ ! -f $1 ] 
 	then 
-		echo "$1 does not exits"
-		exit 1
+		quitInError "$1 does not exits"
 	fi
 }
 
 assertFileContentEquals() {
 	if [ "`cat ${1}`" != "$2" ]
 	then
-		echo Content of file $1 is not $2
-		exit 1
+		quitInErro "Content of file $1 is not $2"
 	fi
+}
+
+quitInError() {
+	echo $1
+	announceFailure 
+	exit 1
 }
 
 modifyHomePageOnNetbook() {
@@ -93,6 +97,18 @@ verifyDesktopAndNetbookAreSynchronized() {
 	assertFileContentEquals ${HOME_PAGE} "${HOME_PAGE_CONTENT}"
 }
 
+announceSuccess() {
+	echo ---------------------------------
+	echo SUCCESS
+	echo ---------------------------------
+}
+
+announceFailure() {
+	echo ---------------------------------
+	echo FAILURE
+	echo ---------------------------------
+}
+
 pageModificationsArePropagatedBetweenComputers() {
 	modifyHomePageOnNetbook
 	publishNetbookModifications
@@ -102,3 +118,4 @@ pageModificationsArePropagatedBetweenComputers() {
 
 setup
 pageModificationsArePropagatedBetweenComputers
+announceSuccess
