@@ -1,9 +1,10 @@
 #!/bin/sh
 
 setupVariables() {
-	SCRIPTS_SEPARATOR="__SCRIPTS__"
+	SCRIPTS_SEPARATOR="__HANDY_WIKI__"
 	INSTALLER="src/main/assembly/installer.sh"
-	PAGE_CREATION_SCRIPT="src/main/scripts/createNewPage.sh"
+	SCRIPTS_DIR="src/main/scripts"
+	PAGE_CREATION_SCRIPT="${SCRIPTS_DIR}/handy-wiki.sh"
 	FULL_INSTALLER="target/handy-installer.sh"
 }
 

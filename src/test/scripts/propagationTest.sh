@@ -7,15 +7,15 @@ cleanUp() {
 
 setupVariables() {
 	INITIAL_DIR=${PWD}
-	WORKING_DIR=/tmp/handy
-	REPO_SUBDIR=repo
-	MASTER_DIR=${WORKING_DIR}/master
-	NETBOOK_DIR=${WORKING_DIR}/netbook
-	NETBOOK_REPO=${NETBOOK_DIR}/${REPO_SUBDIR}
-	DESKTOP_DIR=${WORKING_DIR}/desktop
-	DESKTOP_REPO=${DESKTOP_DIR}/${REPO_SUBDIR}
+	WORKING_DIR="/tmp/handy"
+	REPO_SUBDIR="repo"
+	INSTALLER="target/handy-installer.sh"
+	MASTER_DIR="${WORKING_DIR}/master"
+	NETBOOK_DIR="${WORKING_DIR}/netbook"
+	DESKTOP_DIR="${WORKING_DIR}/desktop"
+	DESKTOP_REPO="${DESKTOP_DIR}/${REPO_SUBDIR}"
 	
-	HOME_PAGE=HomePage
+	HOME_PAGE="HomePage"
 	HOME_PAGE_CONTENT="Home Page"
 }
 
@@ -28,16 +28,16 @@ setupMaster() {
 	git init --quiet --bare ${MASTER_DIR}
 }
 
+installInstance() {
+	${INSTALLER} $1 $2
+}
+
 setupNetbook() {
 	installInstance ${NETBOOK_DIR} ${MASTER_DIR}
 }
 
 setupDesktop() {
 	installInstance ${DESKTOP_DIR} ${MASTER_DIR}
-}
-
-installInstance() {
-	./target/handy-installer.sh $1 $2
 }
 
 setupTraps() {
@@ -82,7 +82,7 @@ modifyHomePageOnNetbook() {
 }
 
 createNewPage() {
-	. ./createNewPage.sh $1
+	./handy-wiki.sh $1
 }
 
 modifyPage() {
