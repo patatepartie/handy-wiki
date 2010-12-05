@@ -37,7 +37,7 @@ setupDesktop() {
 }
 
 installInstance() {
-	./handy-installer.sh $1 $2
+	./target/handy-installer.sh $1 $2
 }
 
 setupTraps() {

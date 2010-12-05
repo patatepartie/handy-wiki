@@ -2,9 +2,9 @@
 
 setupVariables() {
 	SCRIPTS_SEPARATOR="__SCRIPTS__"
-	INSTALLER="installer.sh"
-	PAGE_CREATION_SCRIPT="createNewPage.sh"
-	FULL_INSTALLER="handy-installer.sh"
+	INSTALLER="src/main/assembly/installer.sh"
+	PAGE_CREATION_SCRIPT="src/main/scripts/createNewPage.sh"
+	FULL_INSTALLER="target/handy-installer.sh"
 }
 
 package() {
