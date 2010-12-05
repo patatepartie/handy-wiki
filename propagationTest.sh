@@ -6,7 +6,7 @@ cleanUp() {
 }
 
 setupVariables() {
-	INITAL_DIR=${PWD}
+	INITIAL_DIR=${PWD}
 	WORKING_DIR=/tmp/handy
 	REPO_SUBDIR=repo
 	MASTER_DIR=${WORKING_DIR}/master
@@ -30,6 +30,7 @@ setupMaster() {
 
 setupNetbook() {
 	installInstance ${NETBOOK_DIR}
+	cp ${INITIAL_DIR}/createNewPage.sh ${NETBOOK_DIR}
 }
 
 setupDesktop() {
@@ -75,13 +76,28 @@ quitInError() {
 }
 
 modifyHomePageOnNetbook() {
-	cd ${NETBOOK_REPO}
-	echo ${HOME_PAGE_CONTENT} > ${HOME_PAGE}
-	git add ${HOME_PAGE}
+	cd ${NETBOOK_DIR}
+	
+	createNewPage "${HOME_PAGE}"
+	modifyPage "${HOME_PAGE}" "${HOME_PAGE_CONTENT}"
+}
+
+createNewPage() {
+	. ./createNewPage.sh $1
+}
+
+modifyPage() {
+	cd ${REPO_SUBDIR}
+	echo $2 >> $1
+	git add $1
 	git commit --quiet --message "A new home page"
+	cd ..
 }
 
 publishNetbookModifications() {
+	cd ${NETBOOK_DIR}
+	
+	cd ${REPO_SUBDIR}
 	git push --quiet origin master
 }
 
