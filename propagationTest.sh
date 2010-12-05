@@ -30,7 +30,6 @@ setupMaster() {
 
 setupNetbook() {
 	installInstance ${NETBOOK_DIR} ${MASTER_DIR}
-	cp ${INITIAL_DIR}/createNewPage.sh ${NETBOOK_DIR}
 }
 
 setupDesktop() {
@@ -38,7 +37,7 @@ setupDesktop() {
 }
 
 installInstance() {
-	./installer.sh $1 $2
+	./handy-installer.sh $1 $2
 }
 
 setupTraps() {
