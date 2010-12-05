@@ -29,16 +29,16 @@ setupMaster() {
 }
 
 setupNetbook() {
-	installInstance ${NETBOOK_DIR}
+	installInstance ${NETBOOK_DIR} ${MASTER_DIR}
 	cp ${INITIAL_DIR}/createNewPage.sh ${NETBOOK_DIR}
 }
 
 setupDesktop() {
-	installInstance ${DESKTOP_DIR}
+	installInstance ${DESKTOP_DIR} ${MASTER_DIR}
 }
 
 installInstance() {
-	. ./installer.sh $1
+	./installer.sh $1 $2
 }
 
 setupTraps() {
