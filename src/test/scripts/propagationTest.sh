@@ -82,22 +82,11 @@ modifyHomePageOnNetbook() {
 }
 
 createNewPage() {
-	./handy-wiki.sh create $1
+	./handy-wiki.sh create "$1"
 }
 
 modifyPage() {
-	cd ${REPO_SUBDIR}
-	
-	if [ ! -f $1 ]
-	then
-		echo "Cannot modify file $1: it does not exist" 
-		exit 1
-	fi
-	
-	echo $2 >> $1
-	git add $1
-	git commit --quiet --message "A new home page"
-	cd ..
+	./handy-wiki.sh modify "$1" "$2"
 }
 
 publishNetbookModifications() {
