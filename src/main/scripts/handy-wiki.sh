@@ -13,4 +13,8 @@ createNewPage() {
 }
 
 setupVariables
-createNewPage $1
+
+if [ "create" = "$1" ]
+then
+	createNewPage $2
+fi 
