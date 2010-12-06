@@ -74,13 +74,6 @@ quitInError() {
 	exit 1
 }
 
-modifyHomePageOnNetbook() {
-	cd ${NETBOOK_DIR}
-	
-	createNewPage "${HOME_PAGE}"
-	modifyPage "${HOME_PAGE}" "${HOME_PAGE_CONTENT}"
-}
-
 createNewPage() {
 	./handy-wiki.sh create "$1"
 }
@@ -93,6 +86,17 @@ publishModifications() {
 	./handy-wiki.sh publish
 }
 
+retreiveUpdates() {
+	./handy-wiki.sh update
+}
+
+modifyHomePageOnNetbook() {
+	cd ${NETBOOK_DIR}
+	
+	createNewPage "${HOME_PAGE}"
+	modifyPage "${HOME_PAGE}" "${HOME_PAGE_CONTENT}"
+}
+
 publishNetbookModifications() {
 	cd ${NETBOOK_DIR}
 	
@@ -100,14 +104,14 @@ publishNetbookModifications() {
 }
 
 retreiveUpdatesOnDesktop() {
-	cd ${DESKTOP_REPO}
+	cd ${DESKTOP_DIR}
 	
-	git pull --quiet origin master
+	retreiveUpdates
 }
 
 verifyDesktopAndNetbookAreSynchronized() {
-	assertFileExists ${HOME_PAGE} 
-	assertFileContentEquals ${HOME_PAGE} "${HOME_PAGE_CONTENT}"
+	assertFileExists ${DESKTOP_REPO}/${HOME_PAGE} 
+	assertFileContentEquals ${DESKTOP_REPO}/${HOME_PAGE} "${HOME_PAGE_CONTENT}"
 }
 
 announceSuccess() {

@@ -32,10 +32,16 @@ publishModifications() {
 	git push --quiet origin master
 }
 
+retreiveUpdates() {
+	cd ${REPO_SUBDIR}
+	git pull --quiet origin master
+}
+
 setupVariables
 
 case  "$1"  in
 	"create")   createNewPage "$2";;
     "modify")   modifyPage "$2" "$3";;
     "publish")	publishModifications;;
+    "update") 	retreiveUpdates;;
 esac
