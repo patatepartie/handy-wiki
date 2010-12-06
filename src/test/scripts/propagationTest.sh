@@ -89,15 +89,19 @@ modifyPage() {
 	./handy-wiki.sh modify "$1" "$2"
 }
 
+publishModifications() {
+	./handy-wiki.sh publish
+}
+
 publishNetbookModifications() {
 	cd ${NETBOOK_DIR}
 	
-	cd ${REPO_SUBDIR}
-	git push --quiet origin master
+	publishModifications
 }
 
 retreiveUpdatesOnDesktop() {
 	cd ${DESKTOP_REPO}
+	
 	git pull --quiet origin master
 }
 

@@ -27,11 +27,15 @@ modifyPage() {
 	cd ..
 }
 
+publishModifications() {
+	cd ${REPO_SUBDIR}
+	git push --quiet origin master
+}
+
 setupVariables
 
-if [ "create" = "$1" ]
-then
-	createNewPage "$2"
-else
-	modifyPage "$2" "$3"
-fi 
+case  "$1"  in
+	"create")   createNewPage "$2";;
+    "modify")   modifyPage "$2" "$3";;
+    "publish")	publishModifications;;
+esac
