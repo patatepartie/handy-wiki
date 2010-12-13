@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 cleanUp() {
 	cd ${INITIAL_DIR}
@@ -62,9 +62,16 @@ assertFileExists() {
 }
 
 assertFileContentEquals() {
-	if [ "`cat ${1}`" != "$2" ]
+	if [ "`cat ${2}`" != "$1" ]
 	then
-		quitInError "Content of file $1 is not $2"
+		quitInError "Content of file $2 is not $1"
+	fi
+}
+
+assertEquals() {
+	if [ "$1" != "$2" ]
+	then
+		quitInError "$1 is not equal to $2"
 	fi
 }
 
@@ -109,9 +116,13 @@ retreiveUpdatesOnDesktop() {
 	retreiveUpdates
 }
 
+displayContentFromDesktop() {
+	echo "`cat ${DESKTOP_REPO}/$1`"
+}
+
 verifyDesktopAndNetbookAreSynchronized() {
-	assertFileExists ${DESKTOP_REPO}/${HOME_PAGE} 
-	assertFileContentEquals ${DESKTOP_REPO}/${HOME_PAGE} "${HOME_PAGE_CONTENT}"
+	assertFileExists ${DESKTOP_REPO}/${HOME_PAGE}
+	assertEquals "${HOME_PAGE_CONTENT}" "`displayContentFromDesktop ${HOME_PAGE}`"
 }
 
 announceSuccess() {
