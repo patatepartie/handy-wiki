@@ -8,12 +8,10 @@ cleanUp() {
 setupVariables() {
 	INITIAL_DIR=${PWD}
 	WORKING_DIR="/tmp/handy"
-	REPO_SUBDIR="repo"
 	INSTALLER="target/handy-installer.sh"
 	MASTER_DIR="${WORKING_DIR}/master"
 	NETBOOK_DIR="${WORKING_DIR}/netbook"
 	DESKTOP_DIR="${WORKING_DIR}/desktop"
-	DESKTOP_REPO="${DESKTOP_DIR}/${REPO_SUBDIR}"
 	
 	HOME_PAGE="HomePage"
 	HOME_PAGE_CONTENT="Home Page"
@@ -127,7 +125,6 @@ displayContentFromDesktop() {
 }
 
 verifyDesktopAndNetbookAreSynchronized() {
-	assertFileExists ${DESKTOP_REPO}/${HOME_PAGE}
 	assertEquals "${HOME_PAGE_CONTENT}" "`displayContentFromDesktop ${HOME_PAGE}`"
 }
 

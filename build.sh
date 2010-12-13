@@ -4,9 +4,17 @@ setupVariables() {
 	TEST_SCRIPTS_DIR="src/test/scripts"
 }
 
-build() {
+package() {
 	./package.sh
+}
+
+endToEndTests() {
 	./${TEST_SCRIPTS_DIR}/propagationTest.sh
+}
+
+build() {
+	package
+	endToEndTests	
 }
 
 setupVariables

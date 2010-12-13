@@ -10,8 +10,9 @@ createInstanceDirectory() {
 }
 
 extractApplicationScript() {
-	ARCHIVE=`awk '/^__HANDY_WIKI__/ {print NR + 1; exit 0; }' $0`
-	tail -n+$ARCHIVE $0 > $1/${APPLICATION}
+	SCRIPT_LINE=`awk '/^__HANDY_WIKI__/ {print NR + 1; exit 0; }' $0`
+	BINARIES=`tail -n+$SCRIPT_LINE $0`
+	echo "$BINARIES" > $1/${APPLICATION}
 	chmod +x $1/${APPLICATION}
 }
 
