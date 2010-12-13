@@ -37,11 +37,16 @@ retreiveUpdates() {
 	git pull --quiet origin master
 }
 
+displayContent() {
+	echo "`cat ${REPO_SUBDIR}/$1`"
+}
+
 setupVariables
 
 case  "$1"  in
-	"create")   createNewPage "$2";;
-    "modify")   modifyPage "$2" "$3";;
-    "publish")	publishModifications;;
-    "update") 	retreiveUpdates;;
+	"create")  	createNewPage "$2";;
+   	"modify")  	modifyPage "$2" "$3";;
+   	"publish")	publishModifications;;
+   	"update") 	retreiveUpdates;;
+   	"display")	displayContent "$2";;
 esac

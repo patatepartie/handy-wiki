@@ -97,6 +97,10 @@ retreiveUpdates() {
 	./handy-wiki.sh update
 }
 
+displayContent() {
+	./handy-wiki.sh display "$1"
+}
+
 modifyHomePageOnNetbook() {
 	cd ${NETBOOK_DIR}
 	
@@ -117,7 +121,9 @@ retreiveUpdatesOnDesktop() {
 }
 
 displayContentFromDesktop() {
-	echo "`cat ${DESKTOP_REPO}/$1`"
+	cd ${DESKTOP_DIR}
+
+	displayContent $1
 }
 
 verifyDesktopAndNetbookAreSynchronized() {
